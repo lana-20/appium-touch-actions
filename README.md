@@ -4,6 +4,16 @@ One of the most important aspects of the mobile device user experience is the ab
 
 Before we look at how to access this API from the client, let's first get clarity on the different terms and values involved.
 
+| Actions API Concepts |  |
+| ---- | ---- |
+| Input source | The thing causing the action to happen (mouse, finger, keyboard) |
+| Input source type | <code>mouse</code>, <code>pen</code> or <code>touch</code>. For Appium, always use <code>touch</code> |
+| Input source action | Object that describes an action of various types: <code>pause</code>, <code>pointerDown</code>, <code>pointerUp</code>, <code>pointerMove</code> |
+| Action type-specific properties | Specific info about the action. E.g., <code>duration</code>, <code>x</code>, or <code>y</code> for a <code>pointerMove</code> action. |
+| Action sequence | A list of actions associated with a particular input source. |
+| Multiple input sources | One "Action" may consist of multiple parallel input sources each with their own sequence. |
+
+
 1. First, we have the concept of an 'input source'. An input source is just another name for the thing that is causing the action to happen. The actions API actually has support for more than touch gestures. It also has support for holding down keys on a keyboard. So there are really two kinds of input source. One kind is called 'pointer', which refers to either a mouse pointer or a finger pointer. Anything that can move and click or tap. The other kind of input source is called 'key'. We're going to focus on pointer input sources, since that's what we use for touch actions.
 2. If we have a pointer input source, then in addition we can also specify the type of the input source. This can be either <code>mouse</code>, <code>pen</code>, or <code>touch</code>. For website automation, we would probably use a mouse pointer type. But for Appium scripts running on mobile devices, we'll need to use the <code>touch</code> input type.
 3. Once we have an input source defined, we can start to associate "actions" with it. Each action is itself an object which has various properties depending on the kind of input source it's associated with. For pointer input sources, we have a <code>type</code> key, which can be one of the following types: <code>pause</code>, which is an action that just sits and does nothing. <code>pointerDown</code>, which moves the pointer down to touch the screen. <code>pointerUp</code>, which does the opposite and moves the pointer off the screen. And finally, <code>pointerMove</code>, which moves the pointer to a new location.
