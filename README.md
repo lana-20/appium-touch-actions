@@ -63,6 +63,14 @@ That was all the first action sequence. What about the second? Let's focus on th
 
 This is all very interesting, but it's not what we would actually write in code. This is the low-level object that would be sent by our client library to the Appium server, and I wanted you to get familiar with it so you know everything that's involved in this API, and so you know there's no magic. But now let's talk about how we might encode actions using the Python client instead.
 
+| Python ActionBuilder API |  |
+| ---- | ---- |
+| <code>ActionsBuilder(driver)</code>    <code>selenium.webdriver.common.actions.action_builder</code> | Container for input sources and actions that will build ip and perform them |
+| <code>action.add_pointer_input(kind, id)</code>    <code>selenium.webdriver.common.actions.interaction</code> | To add a pointer input, need to know the kind (e.g. POINTER_TOUCH) and ID (we make this up, e.g. "finger1") |
+
+
+
+
 First, let's talk about the <code>ActionBuilder</code> class. This is a class we can import from <code>selenium.webdriver.common.actions.action_builder</code>, and it is the main container for working with actions. When we create an ActionBuilder object, we pass it our <code>driver</code> object, so it can go ahead and perform the actions for us when we're done. And that's exactly what we do; once we're done building actions, we call the <code>perform()</code> method on the ActionBuilder object. So how do we add actions? Well before we add actions, we first need to add the input source or sources.
 
 To add a pointer input source, we can call the <code>add_pointer_input</code> method on the ActionBuilder object, and it will return a new pointer input for us to use. To create this object, we need two pieces of information. One is the kind of pointer input we're adding. There's a helpful constant called <code>POINTER_TOUCH</code> we can use to designate a touch pointer type, and we can import it from <code>selenium.webdriver.common.actions.interaction</code>. The other parameter is the id of this pointer, which is up to us to define. It really doesn't matter what it is, as long as it's unique. I usually call it <code>finger</code> or <code>finger1</code>. Now that we have a pointer input, we can start to build up actions on it. Let's look at the 4 actions we can use.
