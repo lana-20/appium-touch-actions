@@ -68,14 +68,37 @@ This is all very interesting, but it's not what we would actually write in code.
 | <code>ActionsBuilder(driver)</code>    <code>selenium.webdriver.common.actions.action_builder</code> | Container for input sources and actions that will build ip and perform them |
 | <code>action.add_pointer_input(kind, id)</code>    <code>selenium.webdriver.common.actions.interaction</code> | To add a pointer input, need to know the kind (e.g. POINTER_TOUCH) and ID (we make this up, e.g. "finger1") |
 
-
-
-
 First, let's talk about the <code>ActionBuilder</code> class. This is a class we can import from <code>selenium.webdriver.common.actions.action_builder</code>, and it is the main container for working with actions. When we create an ActionBuilder object, we pass it our <code>driver</code> object, so it can go ahead and perform the actions for us when we're done. And that's exactly what we do; once we're done building actions, we call the <code>perform()</code> method on the ActionBuilder object. So how do we add actions? Well before we add actions, we first need to add the input source or sources.
 
 To add a pointer input source, we can call the <code>add_pointer_input</code> method on the ActionBuilder object, and it will return a new pointer input for us to use. To create this object, we need two pieces of information. One is the kind of pointer input we're adding. There's a helpful constant called <code>POINTER_TOUCH</code> we can use to designate a touch pointer type, and we can import it from <code>selenium.webdriver.common.actions.interaction</code>. The other parameter is the id of this pointer, which is up to us to define. It really doesn't matter what it is, as long as it's unique. I usually call it <code>finger</code> or <code>finger1</code>. Now that we have a pointer input, we can start to build up actions on it. Let's look at the 4 actions we can use.
+
+| Python Input Actions API |  |
+| ---- | ---- |
+| <code>input.create_pause(duration=1000)</code> | Creates a pause for a given number of milliseconds within the action |
+| <code>input.create_pointer_down(MouseButton.LEFT)</code> | Click down (using a certain mouse button) or touch the pointer to the screen |
+| <code>input.create_pointer_up(MouseButton.LEFT)</code> | Release click (given a button) or lift pointer up from screen |
+| <code>input.create_pointer_move(duration, origin, x, y)</code> | Move a pointer from one place to another |
 
 1. First, we could create a <code>pause</code> action. Again, this is an action that doesn't do anything, so we rarely need to use it. That being said, it is helpful when it comes to defining drag and drop sequences, or long presses, that kind of thing. To create a pause action we simply call <code>input.create_pause</code>, passing in a <code>duration</code> keyword argument.
 2. Second, we can call <code>input.create_pointer_down</code>, which touches the pointer to the screen. This takes a single parameter, which is the ID of the mouse button to press. By convention with Appium, we always use the left mouse button for this, even though we don't have a mouse to begin with. We could use the constant 0, but that's a bit cryptic. So instead we can also import the <code>MouseButton</code> class from <code>selenium.webdriver.common.actions.mouse_button</code>, and then refer to the left mouse button as <code>MouseButton.LEFT</code>, to make it a little clearer what's happening.
 3. Third, we could call <code>input.create_pointer_up</code>, which lifts the pointer up off the screen. This takes the same type of parameter as <code>create_pointer_down</code>.
 4. Fourth, we could call the pointer move method using <code>input.create_pointer_move</code>. This take 4 possible keyword arguments, which we already discussed: duration, origin, x, and y. For the origin parameter, the value should either be the string "viewport", which is the default, or the string "pointer" to denote a pointer-relative move.
+
+#### Real-World Scenario
+Here I've got my Android device, and I'm going to open up The App to show you what we're going to try to do using Touch Actions. On the home screen here, there's a button called List Demo. If I tap this, I get to a list view. This is a list of cloud types. Notice that not all clouds are available on the screen right now. To get to the ones at the bottom I'd have to scroll, using a sort of swiping gesture where I move my finger up the middle of the screen. This is especially crucial on Android, where these elements that are "below the fold" so to speak, are not even present in the UI hierarchy until I scroll to make them visible. So if I want to interact with these elements at all, I'll need to use a touch action to get them to show up in the first place. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
