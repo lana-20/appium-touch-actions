@@ -13,7 +13,10 @@ Before we look at how to access this API from the client, let's first get clarit
 | Action sequence | A list of actions associated with a particular input source. |
 | Multiple input sources | One "Action" may consist of multiple parallel input sources each with their own sequence. |
 
+#### Actions API Example:
+
 <img width="600" src="https://user-images.githubusercontent.com/70295997/223850075-8fa6d989-af26-48f2-a780-85b4fa257202.png">
+<img width="600" src="https://user-images.githubusercontent.com/70295997/223855994-6e0301aa-53b6-49bf-8f3a-4fddc4e28a81.png">
 
 1. First, we have the concept of an 'input source'. An input source is just another name for the thing that is causing the action to happen. The actions API actually has support for more than touch gestures. It also has support for holding down keys on a keyboard. So there are really two kinds of input source. One kind is called 'pointer', which refers to either a mouse pointer or a finger pointer. Anything that can move and click or tap. The other kind of input source is called 'key'. We're going to focus on pointer input sources, since that's what we use for touch actions.
 2. If we have a pointer input source, then in addition we can also specify the type of the input source. This can be either <code>mouse</code>, <code>pen</code>, or <code>touch</code>. For website automation, we would probably use a mouse pointer type. But for Appium scripts running on mobile devices, we'll need to use the <code>touch</code> input type.
