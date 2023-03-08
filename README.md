@@ -87,8 +87,7 @@ To add a pointer input source, we can call the <code>add_pointer_input</code> me
 #### Real-World Scenario
 Here I've got my Android device, and I'm going to open up The App to show you what we're going to try to do using Touch Actions. On the home screen here, there's a button called List Demo. If I tap this, I get to a list view. This is a list of cloud types. Notice that not all clouds are available on the screen right now. To get to the ones at the bottom I'd have to scroll, using a sort of swiping gesture where I move my finger up the middle of the screen. This is especially crucial on Android, where these elements that are "below the fold" so to speak, are not even present in the UI hierarchy until I scroll to make them visible. So if I want to interact with these elements at all, I'll need to use a touch action to get them to show up in the first place. 
 
-
-
+<img width="800" src="https://user-images.githubusercontent.com/70295997/223875938-66668f08-e623-447b-b853-3582e379030d.png">
 
 
 
