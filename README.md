@@ -84,10 +84,65 @@ To add a pointer input source, we can call the <code>add_pointer_input</code> me
 3. Third, we could call <code>input.create_pointer_up</code>, which lifts the pointer up off the screen. This takes the same type of parameter as <code>create_pointer_down</code>.
 4. Fourth, we could call the pointer move method using <code>input.create_pointer_move</code>. This take 4 possible keyword arguments, which we already discussed: duration, origin, x, and y. For the origin parameter, the value should either be the string "viewport", which is the default, or the string "pointer" to denote a pointer-relative move.
 
-#### Real-World Scenario
+#### [Real-World Scenario](https://github.com/lana-20/appium-touch-actions/blob/main/gestures_android.py)
 Here I've got my Android device, and I'm going to open up The App to show you what we're going to try to do using Touch Actions. On the home screen here, there's a button called List Demo. If I tap this, I get to a list view. This is a list of cloud types. Notice that not all clouds are available on the screen right now. To get to the ones at the bottom I'd have to scroll, using a sort of swiping gesture where I move my finger up the middle of the screen. This is especially crucial on Android, where these elements that are "below the fold" so to speak, are not even present in the UI hierarchy until I scroll to make them visible. So if I want to interact with these elements at all, I'll need to use a touch action to get them to show up in the first place. 
 
 <img width="800" src="https://user-images.githubusercontent.com/70295997/223875938-66668f08-e623-447b-b853-3582e379030d.png">
+
+Let's write an Android script with automation steps starting with the <code>wait</code>. We want to find and go to the List Demo view.
+
+        wait.until(EC.presence_of_element_located(
+                (MobileBy.ACCESSIBILITY_ID, 'List Demo'))).click()
+        
+That should get us to the list demo screen. I *could* start coding up my gesture right here, but I don't want to do that yet. 
+
+This is because I want to make sure the next view is fully loaded before I go and start swiping. I don't want Appium to start the swipe while the view is in the midst of transition to the next screen. So what do I do instead? Well, what I usually do here is first encode a wait for some element that I know will exist on the next view, so that I don't start any other actions until that element has been found. For this List Demo view, I know that we have a cloud called 'Altocumulus' up top, so I'll just wait for that element:
+
+        wait.until(EC.presence_of_element_located(
+                (MobileBy.ACCESSIBILITY_ID, 'Altocumulus')))
+
+Alright, now we're ready to start encoding our swipe action! But before I do that, I'm going to take care of some of the Python modules imports we'll need for the actions commands:
+
+        from selenium.webdriver.common.actions.action_builder import ActionBuilder
+        from selenium.webdriver.common.actions.interaction import POINTER_TOUCH
+        from selenium.webdriver.common.actions.mouse_button import MouseButton
+
+So the first thing we want to do is create an ActionBuilder object, passing in our driver:
+
+        actions = ActionBuilder(driver)
+            finger = actions.add_pointer_input(POINTER_TOUCH, "finger")
+
+Then, we create a pointer input that I'll call <code>finger</code>, and declare that it's a touch input. Now we can start to define our action sequence using this <code>finger</code> object. Our sequence will consist of four steps, first moving the finger to where we want our swipe to start:
+
+        finger.create_pointer_move(duration=0, x=100, y=500)
+
+In this case I've chosen a sort of arbitrary position of an x value of 100 and a y value of 500. In a real example, we'd want to instead get the device width and size using the Get Window Rect command, also available in Selenium, and then do some math to figure out exactly where we want our swipe to begin. Next, we move the pointer down to begin the period of time where the finger is touching the screen:
+
+        finger.create_pointer_down(button=MouseButton.LEFT)
+
+Now we need to move our finger while it's on the screen. To scroll the list down, we'll need to move our finger up, which we can denote by using a pointer-relative negative y-value. In this case I'll set it to -500, which is basically going to move the finger to the top of the screen. I'm also using a duration of 250 milliseconds for a relatively quick swipe.
+
+        finger.create_pointer_move(duration=250, x=0, y=-500, origin="pointer")
+
+And, finally, we wrap things up by taking the finger back off the screen:
+
+        finger.create_pointer_up(button=MouseButton.LEFT)
+
+Once all this is done, we are finished encoding our actions, and it's time to run them. Just encoding them in ActionBuilder doesn't actually run anything, and this makes sense. We don't want to run the actions one at a time, because the commands would have to go back and forth across the Internet, adding a bunch of latency to our very specific actions. Instead, we encode the actions and then send it as one big object over to the Appium server, where they are decoded and then executed just as we defined them. So to make that happen, we call the <code>perform()</code> method on our ActionBuilder object:
+
+        actions.perform()
+
+So that should scroll us down. To prove that it actually worked, I'm going to try and find an element that I should only be able to find if I've scrolled near the bottom of the list. There's a cloud that starts with S, Stratocumulus, that should do the trick. So I'll just put a basic Find Element command here to make that happen:
+
+        driver.find_element(MobileBy.ACCESSIBILITY_ID, 'Stratocumulus')
+
+Run the script to prove that the Actions-based swipe worked.
+
+This is basically everything there is to the Actions API. But it's by no means the most complex thing you can do with it. The Actions API is a totally general approach to defining touch actions, so it can get quite interesting. You can define quite complex gestures that follow particular shapes or patterns, and even use multiple input sources at once, if your app supports it.
+
+
+
+
 
 
 
