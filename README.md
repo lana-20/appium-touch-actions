@@ -1,6 +1,6 @@
 # Appium Touch Actions
 
-*In terms of interacting with the device, you're not limited to simple element taps. You can also construct arbitrary gestures and touch movements using the WebDriver Actions API.*
+*In terms of interacting with the device, you're not limited to simple element taps. You can also construct arbitrary gestures and touch movements using the WebDriver Actions API. The stylus is the limit!*
 
 One of the most important aspects of the mobile device user experience is the ability to use touch gestures of various kinds to control an app. Luckily, the WebDriver specification already defines a special API that allows you to define any kind of touch action, and Appium supports this API. So let's take a look at what it is and how you can use it!
 
