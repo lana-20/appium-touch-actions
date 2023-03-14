@@ -11,7 +11,7 @@ Before we look at how to access this API from the client, let's first get clarit
 | Input source | The thing causing the action to happen (mouse, finger, keyboard) |
 | Input source type | <code>mouse</code>, <code>pen</code> or <code>touch</code>. For Appium, always use <code>touch</code> |
 | Input source action | Object that describes an action of various types: <code>pause</code>, <code>pointerDown</code>, <code>pointerUp</code>, <code>pointerMove</code> |
-| Action type-specific properties | Specific info about the action. E.g., <code>duration</code>, <code>x</code>, or <code>y</code> for a <code>pointerMove</code> action. |
+| Action type-specific properties | Specific info about the action. E.g., <code>duration</code>, <code>origin</code>, <code>x</code> and <code>y</code> coordinates to move to, for a <code>pointerMove</code> action. |
 | Action sequence | A list of actions associated with a particular input source. |
 | Multiple input sources | One "Action" may consist of multiple parallel input sources each with their own sequence. |
 
