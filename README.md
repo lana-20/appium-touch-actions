@@ -91,6 +91,9 @@ Here I've got my Android device, and I'm going to open up The App to show you wh
 
 <img width="800" src="https://user-images.githubusercontent.com/70295997/223875938-66668f08-e623-447b-b853-3582e379030d.png">
 
+<img width="300" src="https://user-images.githubusercontent.com/70295997/224865358-d813c00b-02ca-407c-83ac-4440061dfcb7.png"><img width="336" src="https://user-images.githubusercontent.com/70295997/224865295-e0fd14fd-2bb6-4b8f-bd72-17cb843cdad2.png">
+
+
 Let's write an Android script with automation steps starting with the <code>wait</code>. We want to find and go to the List Demo view.
 
         wait.until(EC.presence_of_element_located(
