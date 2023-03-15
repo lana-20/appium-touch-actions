@@ -91,7 +91,8 @@ Here I've got my Android device, and I'm going to open up The App to show you wh
 
 <img width="800" src="https://user-images.githubusercontent.com/70295997/223875938-66668f08-e623-447b-b853-3582e379030d.png">
 
-<img width="600" src="https://user-images.githubusercontent.com/70295997/225174422-01ff388a-6c9b-4d38-8f8b-0d0f6bbb18d5.png">
+<img width="600" src="https://user-images.githubusercontent.com/70295997/225175264-cdfebfca-61b8-4e9d-89e7-cc68dfc22763.png">
+
 
 Let's write an Android script with automation steps starting with the <code>wait</code>. We want to find and go to the List Demo view.
 
