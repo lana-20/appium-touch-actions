@@ -33,7 +33,7 @@ try:
     finger = actions.add_pointer_input(POINTER_TOUCH, 'finger')
     finger.create_pointer_move(duration=0, x=100, y=1600)    # move_to_start
     finger.create_pointer_down(button=MouseButton.LEFT)    # press_down
-    finger.create_pointer_move(duration=250, x=0, y=-1600, origin='pointer')    # move_to_end
+    finger.create_pointer_move(duration=250, x=100, y=-1600, origin='pointer')    # move_to_end
     finger.create_pointer_up(button=MouseButton.LEFT)      # press_up
     actions.perform()
 
