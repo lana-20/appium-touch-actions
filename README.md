@@ -1,3 +1,5 @@
+NOTE: This README.md has been refurbished and published as a [post](https://medium.com/@begunova/appium-touch-actions-d6e7b40951d4) on Medium.
+
 # Appium Touch Actions
 
 *In terms of interacting with the device, you're not limited to simple element taps. You can also construct arbitrary gestures and touch movements using the WebDriver Actions API. The stylus is the limit!*
