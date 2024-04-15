@@ -7,7 +7,6 @@ from selenium.webdriver.common.actions.interaction import POINTER_TOUCH
 from selenium.webdriver.common.actions.mouse_button import MouseButton
 
 APP = 'https://github.com/appium/android-apidemos/releases/download/v3.1.0/ApiDemos-debug.apk'
-
 APPIUM = 'http://localhost:4723'
 CAPS = {
     "platformName": "Android",
@@ -18,8 +17,13 @@ CAPS = {
         'app': APP
     }
 }
+OPTIONS = AppiumOptions().load_capabilities(CAPS)
 
-driver = webdriver.Remote(APPIUM, CAPS)
+driver = webdriver.Remote(
+    command_executor=APPIUM,
+    options=OPTIONS
+)
+
 try:
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located(
